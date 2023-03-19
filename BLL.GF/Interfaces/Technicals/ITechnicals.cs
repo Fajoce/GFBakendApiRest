@@ -10,7 +10,7 @@ namespace BLL.GF.Interfaces.Technicals
 {
     public interface ITechnicals
     {
-        Task<string> CreateTechnicalAsync(TechnicalsDTO technicals);
+        Task<bool> CreateTechnicalAsync(TechnicalsDTO technicals);
         Task<bool> DeleteTechnicalAsync(string code);
         Task<TechnicalsDTO> GetTechnicalById(int id);
         Task<IEnumerable<TechnicalsDTO>> GetAll();

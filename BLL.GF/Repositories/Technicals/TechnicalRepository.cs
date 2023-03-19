@@ -29,9 +29,9 @@ namespace BLL.GF.Repositories
         /// </summary>
         /// <param name="technicals"></param>
         /// <returns></returns>
-        public async Task<string> CreateTechnicalAsync(TechnicalsDTO technicals)
+        public async Task<bool> CreateTechnicalAsync(TechnicalsDTO technicals)
         {
-            string message = "";
+            
             try
             {
                 var entity = new Technicals()
@@ -47,12 +47,12 @@ namespace BLL.GF.Repositories
 
                     _context.Technicals.Add(entity);
                 await _context.SaveChangesAsync();
-                message = "Ok";
+                return true;
 
                 }
                 else
                 {
-                    message = "Failure!";
+                    return false;
                 }
 
 
@@ -61,7 +61,7 @@ namespace BLL.GF.Repositories
             {
                 throw new Exception(ex.Message);
             }
-            return message;
+          
         }
 
         /// <summary>
