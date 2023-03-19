@@ -9,7 +9,7 @@ namespace BLL.GF.Interfaces.Remissions
 {
    public interface IRemissions
    {
-        Task<string> CreateRemissionsAsync(RemissionsDTO remissions);
+        Task<bool> CreateRemissionsAsync(RemissionsDTO remissions);
         Task<bool> DeleteRemissionsAsync(int id);
         Task<RemissionsDTO> GetRemissionsById(int id);
         Task<IEnumerable<RemissionsDTO>> GetAll();

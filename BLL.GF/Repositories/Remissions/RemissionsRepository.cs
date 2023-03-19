@@ -28,9 +28,9 @@ namespace BLL.GF.Repositories
         /// </summary>
         /// <param name="remissions"></param>
         /// <returns></returns>
-        public async Task<string> CreateRemissionsAsync(RemissionsDTO remissions)
+        public async Task<bool> CreateRemissionsAsync(RemissionsDTO remissions)
         {
-            string message = "";
+           
             try
             {
                 var entity = new Remissions()
@@ -45,11 +45,11 @@ namespace BLL.GF.Repositories
                 {
                     _context.Remissions.Add(entity);
                     await _context.SaveChangesAsync();
-                    message = "Ok";
+                    return true;
                 }
                 else
                 {
-                    message = "Failure!";
+                    return false;
                 }
 
             }
@@ -57,7 +57,7 @@ namespace BLL.GF.Repositories
             {
                 throw new Exception(ex.Message);
             }
-            return message;
+          
         }
         /// <summary>
         /// 

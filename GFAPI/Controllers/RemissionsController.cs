@@ -59,7 +59,15 @@ namespace GFAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Post([FromBody] RemissionsDTO remissions)
         {
-            return await _Irepositorio.CreateRemissionsAsync(remissions);
+            var res = await _Irepositorio.CreateRemissionsAsync(remissions); 
+            if(res != null)
+            {
+                return StatusCode(StatusCodes.Status200OK, res);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, res);
+            }
         }
 
         // PUT api/<TecnicosController>/5
