@@ -61,7 +61,7 @@ namespace GFAPI.Controllers
         /// <param name="tecnicosDTO"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<string>> Post([FromBody] TechnicalsDTO tecnicosDTO)
+        public async Task<ActionResult<bool>> Post([FromBody] TechnicalsDTO tecnicosDTO)
         {
             return await _Irepositorio.CreateTechnicalAsync(tecnicosDTO);
 
