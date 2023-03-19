@@ -103,7 +103,7 @@ namespace BLL.GF.Repositories
                                ItemName = i.ItemName,
                                RemissionQuantity = r.RemissionQuantity
                             }
-                       ).ToListAsync();
+                       ).OrderBy(r=> r.TechnicalCode).ToListAsync();
             return lst;
         }
 
