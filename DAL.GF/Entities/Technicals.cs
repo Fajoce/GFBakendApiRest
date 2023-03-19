@@ -14,7 +14,7 @@ namespace DAL.GF.Entities
         [Key]
         public string TechnicalCode { get; set; }
         [Required]
-        [RegularExpression(@"(\S)+", ErrorMessage ="No se permiten espacios en blanco ni caracetres especiales")]
+        [RegularExpression(@"^[a-zA-Z0-9]*", ErrorMessage ="No se permiten espacios en blanco ni caracetres especiales")]
         public double TechnicalSalary { get; set; }
         public string BranchOfficeCode { get; set; }
         [ForeignKey("BranchOfficeCode")]
