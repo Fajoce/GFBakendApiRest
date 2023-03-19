@@ -26,9 +26,9 @@ namespace GFAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<TechnicalsDTO>> Get(PaginationFilter filter)
+        public async Task<IEnumerable<TechnicalsDTO>> Get()
         {
-            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            
             return await _Irepositorio.GetAll();
         
         }
@@ -40,18 +40,18 @@ namespace GFAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<TechnicalsDTO>> Get(int id)
+        public async Task<TechnicalsDTO> Get(int id)
         {
             
-            var res = await _Irepositorio.GetTechnicalById(id);
-            if (res != null)
-            {
-                return Ok(new Response<TechnicalsDTO>(res));
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, "No se encuentra");
-            }
+            return await _Irepositorio.GetTechnicalById(id);
+            //if (res != null)
+            //{
+            //    return StatusCode(StatusCodes.Status400BadRequest, res);
+            //}
+            //else
+            //{
+            //    return StatusCode(StatusCodes.Status400BadRequest, "No se encuentra");
+            //}
         }
 
         // POST api/<TecnicosController>
@@ -96,7 +96,7 @@ namespace GFAPI.Controllers
 
         // DELETE api/<TecnicosController>/5
         [HttpDelete("{id}")]
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(string id)
         {
             return await _Irepositorio.DeleteTechnicalAsync(id);
 

@@ -70,13 +70,13 @@ namespace BLL.GF.Repositories
         /// <param name="id"></param>
         /// <returns></returns>
 
-        public async Task<bool> DeleteTechnicalAsync(int id)
+        public async Task<bool> DeleteTechnicalAsync(string id)
         {
             try
             {
                 var entity = new Technicals()
                 {
-                    TechnicalId = id
+                    TechnicalCode = id
                 };
                 _context.Technicals.Attach(entity);
                 _context.Technicals.Remove(entity);
@@ -128,6 +128,7 @@ namespace BLL.GF.Repositories
                                 TechnicalCode = t.TechnicalCode,
                                 TechnicalFullName = t.TechnicalFullName,
                                 TechnicalSalary = t.TechnicalSalary,
+                                BranchOfficeCode = t.BranchOfficeCode,
                                 BranchOfficeName = bo.BranchOfficeName
                             }
                        ).FirstOrDefaultAsync(t=> t.TechnicalId == id);
