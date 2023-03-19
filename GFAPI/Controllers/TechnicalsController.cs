@@ -63,7 +63,15 @@ namespace GFAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<bool>> Post([FromBody] TechnicalsDTO tecnicosDTO)
         {
-            return await _Irepositorio.CreateTechnicalAsync(tecnicosDTO);
+            var res = await _Irepositorio.CreateTechnicalAsync(tecnicosDTO);
+            if (res)
+            {
+                return StatusCode(StatusCodes.Status200OK, res);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, res);
+            }
 
         }
 

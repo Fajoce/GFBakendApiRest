@@ -60,7 +60,7 @@ namespace GFAPI.Controllers
         public async Task<ActionResult<string>> Post([FromBody] RemissionsDTO remissions)
         {
             var res = await _Irepositorio.CreateRemissionsAsync(remissions); 
-            if(res != null)
+            if(res)
             {
                 return StatusCode(StatusCodes.Status200OK, res);
             }
