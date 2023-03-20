@@ -88,23 +88,30 @@ namespace BLL.GF.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<RemissionsDTO>> GetAll()
         {
-            var lst = await(from r in _context.Remissions
-                            join t in _context.Technicals
-                            on r.TechnicalCode equals t.TechnicalCode
-                            join i in _context.Items
-                            on r.ItemCode equals i.ItemCode
-                            select new RemissionsDTO
-                            {
-                               RemissionId = r.RemissionId,
-                               RemissionDate = r.RemissionDate,
-                               TechnicalCode = t.TechnicalCode,
-                               TechnicalFullName = t.TechnicalFullName,
-                               ItemCode = i.ItemCode,
-                               ItemName = i.ItemName,
-                               RemissionQuantity = r.RemissionQuantity
-                            }
-                       ).OrderBy(r=> r.TechnicalCode).ToListAsync();
-            return lst;
+            try
+            {
+                var lst = await (from r in _context.Remissions
+                                 join t in _context.Technicals
+                                 on r.TechnicalCode equals t.TechnicalCode
+                                 join i in _context.Items
+                                 on r.ItemCode equals i.ItemCode
+                                 select new RemissionsDTO
+                                 {
+                                     RemissionId = r.RemissionId,
+                                     RemissionDate = r.RemissionDate,
+                                     TechnicalCode = t.TechnicalCode,
+                                     TechnicalFullName = t.TechnicalFullName,
+                                     ItemCode = i.ItemCode,
+                                     ItemName = i.ItemName,
+                                     RemissionQuantity = r.RemissionQuantity
+                                 }
+                           ).OrderBy(r => r.TechnicalCode).ToListAsync();
+                return lst;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -115,23 +122,30 @@ namespace BLL.GF.Repositories
 
         public async Task<RemissionsDTO> GetRemissionsById(int id)
         {
-            var lst = await(from r in _context.Remissions
-                            join t in _context.Technicals
-                            on r.TechnicalCode equals t.TechnicalCode
-                            join i in _context.Items
-                            on r.ItemCode equals i.ItemCode
-                            select new RemissionsDTO
-                            {
-                                RemissionId = r.RemissionId,
-                                RemissionDate = r.RemissionDate,
-                                TechnicalCode = t.TechnicalCode,
-                                TechnicalFullName = t.TechnicalFullName,
-                                ItemCode = i.ItemCode,
-                                ItemName = i.ItemName,
-                                RemissionQuantity = r.RemissionQuantity
-                            }
-                       ).FirstOrDefaultAsync(r=> r.RemissionId == id);
-            return lst;
+            try
+            {
+                var lst = await (from r in _context.Remissions
+                                 join t in _context.Technicals
+                                 on r.TechnicalCode equals t.TechnicalCode
+                                 join i in _context.Items
+                                 on r.ItemCode equals i.ItemCode
+                                 select new RemissionsDTO
+                                 {
+                                     RemissionId = r.RemissionId,
+                                     RemissionDate = r.RemissionDate,
+                                     TechnicalCode = t.TechnicalCode,
+                                     TechnicalFullName = t.TechnicalFullName,
+                                     ItemCode = i.ItemCode,
+                                     ItemName = i.ItemName,
+                                     RemissionQuantity = r.RemissionQuantity
+                                 }
+                           ).FirstOrDefaultAsync(r => r.RemissionId == id);
+                return lst;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         /// <summary>
         /// update remission
@@ -140,13 +154,20 @@ namespace BLL.GF.Repositories
         /// <returns></returns>
         public async Task<bool> UpdateTechnicalsync(RemissionsDTO remissions)
         {
-            var entity = await _context.Remissions.FirstOrDefaultAsync(r => r.RemissionId == remissions.RemissionId);
-            entity.RemissionDate = remissions.RemissionDate;
-            entity.TechnicalCode = remissions.TechnicalCode;
-            entity.ItemCode = remissions.ItemCode;
-            entity.RemissionQuantity = remissions.RemissionQuantity;
-            await _context.SaveChangesAsync();
-            return true;
+            try
+            {
+                var entity = await _context.Remissions.FirstOrDefaultAsync(r => r.RemissionId == remissions.RemissionId);
+                entity.RemissionDate = remissions.RemissionDate;
+                entity.TechnicalCode = remissions.TechnicalCode;
+                entity.ItemCode = remissions.ItemCode;
+                entity.RemissionQuantity = remissions.RemissionQuantity;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         #endregion Public Methods

@@ -95,20 +95,27 @@ namespace BLL.GF.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<TechnicalsDTO>> GetAll()
         {
-           
-            var lst = await (from t in _context.Technicals join bo in _context.BranchOffices
-                             on t.BranchOfficeCode equals bo.BranchOfficeCode
-                             select new TechnicalsDTO
-                             {
-                                 TechnicalId = t.TechnicalId,
-                                 TechnicalCode = t.TechnicalCode,
-                                 TechnicalFullName = t.TechnicalFullName,
-                                 TechnicalSalary = t.TechnicalSalary,
-                                 BranchOfficeCode = t.BranchOfficeCode,
-                                 BranchOfficeName = bo.BranchOfficeName
-                             }
-                       ).OrderBy(t=> t.TechnicalId).ToListAsync();
-            return lst;
+            try
+            {
+                var lst = await (from t in _context.Technicals
+                                 join bo in _context.BranchOffices
+   on t.BranchOfficeCode equals bo.BranchOfficeCode
+                                 select new TechnicalsDTO
+                                 {
+                                     TechnicalId = t.TechnicalId,
+                                     TechnicalCode = t.TechnicalCode,
+                                     TechnicalFullName = t.TechnicalFullName,
+                                     TechnicalSalary = t.TechnicalSalary,
+                                     BranchOfficeCode = t.BranchOfficeCode,
+                                     BranchOfficeName = bo.BranchOfficeName
+                                 }
+                           ).OrderBy(t => t.TechnicalId).ToListAsync();
+                return lst;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -119,20 +126,27 @@ namespace BLL.GF.Repositories
 
         public async Task<TechnicalsDTO> GetTechnicalById(int id)
         {
-            var lst = await(from t in _context.Technicals
-                            join bo in _context.BranchOffices
-                            on t.BranchOfficeCode equals bo.BranchOfficeCode
-                            select new TechnicalsDTO
-                            {
-                                TechnicalId = t.TechnicalId,
-                                TechnicalCode = t.TechnicalCode,
-                                TechnicalFullName = t.TechnicalFullName,
-                                TechnicalSalary = t.TechnicalSalary,
-                                BranchOfficeCode = t.BranchOfficeCode,
-                                BranchOfficeName = bo.BranchOfficeName
-                            }
-                       ).FirstOrDefaultAsync(t=> t.TechnicalId == id);
-            return lst;
+            try
+            {
+                var lst = await (from t in _context.Technicals
+                                 join bo in _context.BranchOffices
+                                 on t.BranchOfficeCode equals bo.BranchOfficeCode
+                                 select new TechnicalsDTO
+                                 {
+                                     TechnicalId = t.TechnicalId,
+                                     TechnicalCode = t.TechnicalCode,
+                                     TechnicalFullName = t.TechnicalFullName,
+                                     TechnicalSalary = t.TechnicalSalary,
+                                     BranchOfficeCode = t.BranchOfficeCode,
+                                     BranchOfficeName = bo.BranchOfficeName
+                                 }
+                           ).FirstOrDefaultAsync(t => t.TechnicalId == id);
+                return lst;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -143,13 +157,20 @@ namespace BLL.GF.Repositories
 
         public async Task<bool> UpdateTechnicalsync(TechnicalsDTO tecnicos)
         {
-            var entity = await _context.Technicals.FirstOrDefaultAsync(t => t.TechnicalId == tecnicos.TechnicalId);
-            entity.TechnicalFullName = tecnicos.TechnicalFullName;
-            entity.TechnicalCode = tecnicos.TechnicalCode;
-            entity.TechnicalSalary = tecnicos.TechnicalSalary;
-            entity.BranchOfficeCode = tecnicos.BranchOfficeCode;
-            await _context.SaveChangesAsync();
-            return true;
+            try
+            {
+                var entity = await _context.Technicals.FirstOrDefaultAsync(t => t.TechnicalId == tecnicos.TechnicalId);
+                entity.TechnicalFullName = tecnicos.TechnicalFullName;
+                entity.TechnicalCode = tecnicos.TechnicalCode;
+                entity.TechnicalSalary = tecnicos.TechnicalSalary;
+                entity.BranchOfficeCode = tecnicos.BranchOfficeCode;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         #endregion Public Methods
 
