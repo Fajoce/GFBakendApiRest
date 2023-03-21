@@ -14,5 +14,6 @@ namespace BLL.GF.Interfaces.Remissions
         Task<RemissionsDTO> GetRemissionsById(int id);
         Task<IEnumerable<RemissionsDTO>> GetAll();
         Task<bool> UpdateTechnicalsync(RemissionsDTO remissions);
+        Task<IEnumerable<ItemResume>> GetResume();
     }
 }

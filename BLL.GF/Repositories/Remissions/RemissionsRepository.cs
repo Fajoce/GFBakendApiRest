@@ -178,6 +178,24 @@ namespace BLL.GF.Repositories
             return _context.Remissions.Any(t => t.TechnicalCode == tcode && t.ItemCode == icode);
         }
 
+        public async Task<IEnumerable<ItemResume>> GetResume()
+        {
+            var lst = await(from r in _context.Remissions
+                           join i in _context.Items
+                            on r.ItemCode equals i.ItemCode
+                           group r by new { r.ItemCode,i.ItemName} into newGroup
+                           select new ItemResume
+                           {
+                               ItemeCode = newGroup.Key.ItemCode,
+                               ItemName = newGroup.Key.ItemName,
+                               Quantity = newGroup.Count(),
+                               Add = newGroup.Sum(r => r.RemissionQuantity),
+                               Maximum = (int)newGroup.Max(r => r.RemissionQuantity),
+                               Minimum = (int)newGroup.Min(r => r.RemissionQuantity)
+                           }).ToListAsync();
+            return lst;
+        }
+
         #endregion Private Methods
     }
 }

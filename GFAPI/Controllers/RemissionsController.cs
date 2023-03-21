@@ -30,6 +30,12 @@ namespace GFAPI.Controllers
             return await _Irepositorio.GetAll();
         }
 
+        [HttpGet("Resume")]
+        public async Task<IEnumerable<ItemResume>> GetResume()
+        {
+            return await _Irepositorio.GetResume();
+        }
+
         // GET api/<RemissionController>/5
         /// <summary>
         /// GetTechnicalById
