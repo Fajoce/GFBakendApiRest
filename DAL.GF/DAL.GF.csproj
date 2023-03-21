@@ -461,7 +461,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\BranchOfficeDTO.cs" />
-    <Compile Include="DTO\ItemResume.cs" />
+    <Compile Include="DTO\ItemResumeDTO.cs" />
     <Compile Include="DTO\ItemsDTO.cs" />
     <Compile Include="DTO\RemissionsDTO.cs" />
     <Compile Include="DTO\TechnicalResumenDTO.cs" />

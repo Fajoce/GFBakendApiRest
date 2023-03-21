@@ -31,7 +31,7 @@ namespace GFAPI.Controllers
         }
 
         [HttpGet("Resume")]
-        public async Task<IEnumerable<ItemResume>> GetResume()
+        public async Task<IEnumerable<ItemResumeDTO>> GetResume()
         {
             return await _Irepositorio.GetResume();
         }

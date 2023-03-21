@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.GF.DTO
 {
-    public class ItemResume
+    public class ItemResumeDTO
     {
         public string ItemeCode { get; set; }
         public string ItemName { get; set; }
