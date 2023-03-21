@@ -1,5 +1,7 @@
 ﻿using BLL.GF.Interfaces.Technicals;
+using BLL.GF.Repositories;
 using DAL.GF;
+using DAL.GF.DTO;
 using DAL.GF.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +17,12 @@ namespace GFAPI.Controllers
     public class TechnicalsController : ControllerBase
     {
         public readonly ITechnicals _Irepositorio;
+        //public readonly TechnicalRepository _technical;
 
         public TechnicalsController(ITechnicals repositorio)
         {
             _Irepositorio = repositorio;
+            //_technical = technical;
         }
         // GET: api/<TecnicosController>
         /// <summary>
@@ -107,6 +111,14 @@ namespace GFAPI.Controllers
         public async Task<bool> Delete(string id)
         {
             return await _Irepositorio.DeleteTechnicalAsync(id);
+
+        }
+
+        [HttpGet("Resumen")]
+        public async Task<IEnumerable<TechnicalResumenDTO>> GetResumen()
+        {
+
+            return await _Irepositorio.GetResumen();
 
         }
     }

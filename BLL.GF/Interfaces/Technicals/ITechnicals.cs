@@ -1,4 +1,5 @@
 ﻿using DAL.GF;
+using DAL.GF.DTO;
 using DAL.GF.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace BLL.GF.Interfaces.Technicals
         Task<TechnicalsDTO> GetTechnicalById(int id);
         Task<IEnumerable<TechnicalsDTO>> GetAll();
         Task<bool> UpdateTechnicalsync(TechnicalsDTO tecnicos);
+        Task<IEnumerable<TechnicalResumenDTO>> GetResumen();
     }
 }

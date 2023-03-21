@@ -1,5 +1,6 @@
 ﻿using BLL.GF.Interfaces.Technicals;
 using DAL.GF;
+using DAL.GF.DTO;
 using DAL.GF.Entities;
 using DAL.GF.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -72,21 +73,16 @@ namespace BLL.GF.Repositories
 
         public async Task<bool> DeleteTechnicalAsync(string id)
         {
-            try
-            {
+            
                 var entity = new Technicals()
                 {
                     TechnicalCode = id
                 };
-                _context.Technicals.Attach(entity);
+               _context.Technicals.Attach(entity);
                 _context.Technicals.Remove(entity);
                 await _context.SaveChangesAsync();
                 return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+           
         }
 
         /// <summary>
@@ -99,7 +95,7 @@ namespace BLL.GF.Repositories
             {
                 var lst = await (from t in _context.Technicals
                                  join bo in _context.BranchOffices
-   on t.BranchOfficeCode equals bo.BranchOfficeCode
+                                    on t.BranchOfficeCode equals bo.BranchOfficeCode
                                  select new TechnicalsDTO
                                  {
                                      TechnicalId = t.TechnicalId,
@@ -178,6 +174,25 @@ namespace BLL.GF.Repositories
         public bool Existe(string code)
         {
             return _context.Technicals.Any(t => t.TechnicalCode == code);
+        }
+
+        public async Task <IEnumerable<TechnicalResumenDTO>> GetResumen()
+        {
+            var lst = await (from t in _context.Technicals
+                       join bo in _context.BranchOffices
+                        on t.BranchOfficeCode equals bo.BranchOfficeCode
+                       group t by new { t.BranchOfficeCode, bo.BranchOfficeName } into newGroup
+                       select new TechnicalResumenDTO
+                       {
+                           BranchOfficeCode = newGroup.Key.BranchOfficeCode,
+                           BranchOfficeName = newGroup.Key.BranchOfficeName,
+                           Quantity =  newGroup.Count(),
+                           Add = newGroup.Sum(r=> r.TechnicalSalary),
+                           Avg = newGroup.Average(r => r.TechnicalSalary),
+                           Maximum = (int)newGroup.Max(r => r.TechnicalSalary),
+                           Minimum = (int)newGroup.Min(r => r.TechnicalSalary)
+                       }).ToListAsync();
+            return lst;
         }
 
         #endregion Private Methods

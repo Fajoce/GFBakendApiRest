@@ -463,6 +463,7 @@
     <Compile Include="DTO\BranchOfficeDTO.cs" />
     <Compile Include="DTO\ItemsDTO.cs" />
     <Compile Include="DTO\RemissionsDTO.cs" />
+    <Compile Include="DTO\TechnicalResumenDTO.cs" />
     <Compile Include="Entities\BranchOffices.cs" />
     <Compile Include="Entities\GFDbContext.cs" />
     <Compile Include="Entities\Items.cs" />
